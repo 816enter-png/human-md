@@ -603,9 +603,9 @@ textarea.input-field {
 .card-stack .file-card {
   position: absolute;
   top: 0; left: 0; right: 0;
-  background: rgba(20, 20, 27, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(17, 17, 23, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(237, 237, 234, 0.1);
   border-radius: 12px;
@@ -818,21 +818,48 @@ html { background: #0B0B0E; }
   100% { transform: translate(8vw, -10vh) scale(1); }
 }
 
-.ascii-hero-wrap {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 8px;
-}
 #ascii-hero {
-  width: min(420px, 86vw);
-  aspect-ratio: 7 / 8;
-  display: block;
-  filter: drop-shadow(0 0 28px hsla(var(--hue), 80%, 60%, 0.22));
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.landing-hero { z-index: 1; }
+
+/* First viewport: the field + negative profile, alone. Content arrives on scroll. */
+.hero-viewport {
+  height: calc(100vh - 220px);
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.scroll-cue {
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  font-size: 15px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+  animation: cueBob 2.2s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+}
+body.scrolled .scroll-cue { opacity: 0; }
+@keyframes cueBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(9px); }
+}
+
+/* Aurora leans away from the cursor — depth without noise */
+.bg-aurora .blob {
+  translate: calc((var(--mx, 0.5) - 0.5) * -60px) calc((var(--my, 0.5) - 0.5) * -60px);
+  transition: translate 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-aurora .blob { animation: none; }
+  .bg-aurora .blob { animation: none; translate: none; }
+  .scroll-cue { animation: none; }
 }
 </style>
 </head>
@@ -845,6 +872,9 @@ html { background: #0B0B0E; }
      SCREEN 1: LANDING
      ============================================================ -->
 <div class="screen active" id="screen-1">
+  <!-- Full-viewport character field with negative human profile -->
+  <canvas id="ascii-hero" aria-hidden="true"></canvas>
+
   <!-- Top Nav — frosted glass -->
   <nav class="landing-nav">
     <div class="nav-inner">
@@ -857,8 +887,8 @@ html { background: #0B0B0E; }
   <!-- Hero content -->
   <div class="landing-hero">
 
-    <!-- Slow ASCII human — the file, made visible -->
-    <div class="ascii-hero-wrap" aria-hidden="true"><canvas id="ascii-hero"></canvas></div>
+    <!-- First viewport belongs to the field; a cue invites the scroll -->
+    <div class="hero-viewport" aria-hidden="true"><div class="scroll-cue">▼</div></div>
 
     <!-- Rolling card stack -->
     <div class="card-stack" id="card-stack">
@@ -1887,74 +1917,178 @@ function vnoise(x, y) {
   const ex = fx * fx * (3 - 2 * fx), ey = fy * fy * (3 - 2 * fy);
   return a + (b - a) * ex + (c - a) * ey + (d - b - c + a) * ex * ey;
 }
-// Head-and-shoulders silhouette in normalized [-1,1] space (y down)
-function figureMask(nx, ny) {
-  const hx = nx / 0.30, hy = (ny + 0.36) / 0.40;
-  const head = 1 - (hx * hx + hy * hy);
-  const kx = nx / 0.13, ky = (ny - 0.12) / 0.22;
-  const neck = 1 - (kx * kx * kx * kx + ky * ky);
-  const sx = nx / 0.80, sy = (ny - 0.92) / 0.55;
-  const shoulders = 1 - (sx * sx + sy * sy);
-  return Math.max(0, Math.min(1, Math.max(head, neck, shoulders) * 2.4));
+// Side-profile human silhouette (facing right), authored in a 0..1 unit box (y down).
+// The profile is NEGATIVE space: the character field fills the page, the human is the void.
+function buildProfilePath() {
+  const p = new Path2D();
+  p.moveTo(0.42, 0.04);
+  p.bezierCurveTo(0.20, 0.06, 0.10, 0.26, 0.15, 0.46);   // back of skull
+  p.bezierCurveTo(0.18, 0.62, 0.25, 0.72, 0.28, 0.84);   // nape
+  p.lineTo(0.30, 1.001);                                  // back of neck
+  p.lineTo(0.63, 1.001);                                  // neck base
+  p.bezierCurveTo(0.60, 0.90, 0.555, 0.845, 0.565, 0.79); // throat
+  p.bezierCurveTo(0.67, 0.77, 0.695, 0.725, 0.66, 0.67);  // chin
+  p.bezierCurveTo(0.645, 0.64, 0.695, 0.615, 0.675, 0.575); // lower lip
+  p.bezierCurveTo(0.66, 0.55, 0.72, 0.53, 0.705, 0.495);  // upper lip
+  p.bezierCurveTo(0.69, 0.465, 0.80, 0.435, 0.755, 0.375); // nose
+  p.bezierCurveTo(0.725, 0.335, 0.705, 0.32, 0.705, 0.27); // bridge
+  p.bezierCurveTo(0.705, 0.21, 0.66, 0.15, 0.60, 0.10);   // brow
+  p.bezierCurveTo(0.55, 0.055, 0.48, 0.03, 0.42, 0.04);   // crown
+  p.closePath();
+  return p;
 }
 
 function initAmbient() {
   const root = document.documentElement;
   const canvas = document.getElementById('ascii-hero');
   const ctx = canvas ? canvas.getContext('2d') : null;
-  const CW = 7, CH = 11, BASE_HUE = 210, HUE_SPEED = 4; // deg/sec — full cycle every 90s
-  let cols = 0, rows = 0, dpr = 1, figureCells = [];
+  const CW = 10, CH = 17, BASE_HUE = 210, HUE_SPEED = 4; // deg/sec — full cycle every 90s
+  const FIELD_RAMP = '·::--=+>*';
+  const RIM_RAMP = '#%@#';
+  let cols = 0, rows = 0, dpr = 1, W = 0, H = 0;
+  let mask = null, rim = null, rimCells = [];
+  let mx = -1e4, my = -1e4, smx = -1e4, smy = -1e4, scrollP = 0;
+  const unitProfile = (typeof Path2D !== 'undefined' && typeof DOMMatrix !== 'undefined') ? buildProfilePath() : null;
 
   function resize() {
     if (!canvas) return;
-    const r = canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(r.width * dpr);
-    canvas.height = Math.round(r.height * dpr);
-    cols = Math.max(1, Math.floor(r.width / CW));
-    rows = Math.max(1, Math.floor(r.height / CH));
-    figureCells = [];
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    cols = Math.max(1, Math.ceil(W / CW));
+    rows = Math.max(1, Math.ceil(H / CH));
+    mask = new Uint8Array(cols * rows);
+    rim = new Uint8Array(cols * rows);
+    rimCells = [];
+    if (!unitProfile || !ctx || W === 0) return;
+    // Scale the profile to ~86% of viewport height, centered
+    const ph = H * 0.86, pw = ph * 0.80;
+    const ox = (W - pw) / 2, oy = H * 0.05;
+    const scaled = new Path2D();
+    scaled.addPath(unitProfile, new DOMMatrix([pw * dpr, 0, 0, ph * dpr, ox * dpr, oy * dpr]));
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
-        if (figureMask(((x + 0.5) / cols) * 2 - 1, ((y + 0.5) / rows) * 2 - 1) > 0.5) figureCells.push([x, y]);
+        if (ctx.isPointInPath(scaled, (x + 0.5) * CW * dpr, (y + 0.5) * CH * dpr)) mask[y * cols + x] = 1;
       }
     }
+    // Core rim: cells on the inside/outside boundary
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const i = y * cols + x, v = mask[i];
+        let boundary = false;
+        for (let dy = -1; dy <= 1 && !boundary; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            const xx = x + dx, yy = y + dy;
+            if (xx < 0 || yy < 0 || xx >= cols || yy >= rows) continue;
+            if (mask[yy * cols + xx] !== v) { boundary = true; break; }
+          }
+        }
+        if (boundary) { rim[i] = 1; rimCells.push(i); }
+      }
+    }
+    // Halo: one soft ring around the core rim
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const i = y * cols + x;
+        if (rim[i]) continue;
+        let nearRim = false;
+        for (let dy = -1; dy <= 1 && !nearRim; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            const xx = x + dx, yy = y + dy;
+            if (xx < 0 || yy < 0 || xx >= cols || yy >= rows) continue;
+            if (rim[yy * cols + xx] === 1) { nearRim = true; break; }
+          }
+        }
+        if (nearRim) rim[i] = 2;
+      }
+    }
+    // Order the contour by angle so the spark travels along it
+    let cx0 = 0, cy0 = 0;
+    rimCells.forEach(i => { cx0 += i % cols; cy0 += (i / cols) | 0; });
+    cx0 /= rimCells.length || 1; cy0 /= rimCells.length || 1;
+    rimCells.sort((a, b) =>
+      Math.atan2(((a / cols) | 0) - cy0, (a % cols) - cx0) -
+      Math.atan2(((b / cols) | 0) - cy0, (b % cols) - cx0));
   }
 
   function draw(t) {
-    // Self-heal: if the page loaded in a hidden tab, the first resize() saw a 0×0 rect
+    // Self-heal: if the page loaded in a hidden tab, the first resize() saw a 0×0 viewport
     if (canvas.width === 0 || canvas.height === 0) {
       resize();
       if (canvas.width === 0) return;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = (10 * dpr) + 'px "JetBrains Mono", monospace';
-    ctx.textBaseline = 'top';
-    const hue = (BASE_HUE + t * HUE_SPEED) % 360;
-    const breathe = 1 + 0.022 * Math.sin(t * 0.55);
+    ctx.font = (12 * dpr) + 'px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const hue = (BASE_HUE + t * HUE_SPEED + scrollP * 40) % 360;
+    if (mx > -9000) {
+      if (smx < -9000) { smx = mx; smy = my; }
+      smx += (mx - smx) * 0.14;
+      smy += (my - smy) * 0.14;
+    }
+    const sig2 = 2 * 150 * 150;
+    const parallax = Math.round(scrollP * 7); // the profile drifts up as you scroll
     for (let y = 0; y < rows; y++) {
-      const nyRaw = ((y + 0.5) / rows) * 2 - 1;
       for (let x = 0; x < cols; x++) {
-        const nx = (((x + 0.5) / cols) * 2 - 1) / breathe;
-        const ny = nyRaw / breathe;
-        const m = figureMask(nx, ny);
-        if (m <= 0.02) continue;
-        const n = vnoise(nx * 3.1 + t * 0.16, ny * 3.1 - t * 0.1) * 0.72
-                + vnoise(nx * 7.3 + t * 0.05, ny * 7.3 + 40) * 0.28;
-        const b = m * (0.3 + 0.7 * n);
-        if (b < 0.07) continue;
-        const ch = ASCII_RAMP[Math.min(ASCII_RAMP.length - 1, Math.floor(b * ASCII_RAMP.length))];
-        const h = (hue + n * 70 + ny * 25 + 360) % 360;
-        ctx.fillStyle = 'hsla(' + (h | 0) + ',80%,' + ((45 + b * 33) | 0) + '%,' + (0.22 + 0.78 * b).toFixed(2) + ')';
-        ctx.fillText(ch, x * CW * dpr, y * CH * dpr);
+        const ly = Math.min(rows - 1, y + parallax);
+        const li = ly * cols + x;
+        const inside = mask[li], edge = rim[li];
+        const cxp = (x + 0.5) * CW, cyp = (y + 0.5) * CH;
+        const dx0 = cxp - smx, dy0 = cyp - smy;
+        const g = smx > -9000 ? Math.exp(-(dx0 * dx0 + dy0 * dy0) / sig2) : 0;
+        const n = vnoise(x * 0.16 + t * 0.14, y * 0.16 - t * 0.09) * 0.7
+                + vnoise(x * 0.45 - t * 0.05, y * 0.45 + 40) * 0.3;
+        let chr = null, alpha = 0, light = 0, hshift = 0;
+        if (edge === 1) {
+          // The contour — a glowing outline where the field meets the void
+          const pulse = 0.7 + 0.3 * vnoise(x * 0.3 + t * 0.5, y * 0.3);
+          chr = RIM_RAMP[(x + y + ((t * 2) | 0)) % RIM_RAMP.length];
+          alpha = (0.85 + g * 0.15) * (1 - scrollP * 0.25) * pulse;
+          light = 68 + g * 18;
+          hshift = 25;
+        } else if (edge === 2) {
+          chr = '+';
+          alpha = 0.38 * (1 - scrollP * 0.3);
+          light = 60;
+          hshift = 25;
+        } else if (inside) {
+          // The void — the human is negative space
+          if (nzHash(x, y) < 0.05) {
+            chr = '·';
+            alpha = 0.10 + g * 0.25;
+            light = 55;
+          }
+        } else {
+          // The ambient character field — the cursor reveals hidden glyphs
+          const reveal = 0.40 - g * 0.28;
+          if (n > reveal) {
+            const b = Math.min(1, (n - reveal) / (1 - reveal) + g * 0.55);
+            chr = FIELD_RAMP[Math.min(FIELD_RAMP.length - 1, (b * FIELD_RAMP.length) | 0)];
+            alpha = (0.10 + 0.55 * b + g * 0.3) * (1 - scrollP * 0.55);
+            light = 48 + b * 26 + g * 16;
+            hshift = n * 50 + g * 70;
+          }
+        }
+        if (!chr || alpha <= 0.02) continue;
+        // Scroll disintegration + gentle cursor push
+        const scatter = (nzHash(x + 71, y + 17) - 0.5) * scrollP * 120;
+        const d0 = Math.sqrt(dx0 * dx0 + dy0 * dy0) || 1;
+        const push = g * 9;
+        const ddx = (dx0 / d0) * push + scatter;
+        const ddy = (dy0 / d0) * push + (nzHash(x + 31, y + 57) - 0.5) * scrollP * 120;
+        const h = (hue + hshift + 360) % 360;
+        ctx.fillStyle = 'hsla(' + (h | 0) + ',85%,' + (light | 0) + '%,' + alpha.toFixed(2) + ')';
+        ctx.fillText(chr, (cxp + ddx) * dpr, (cyp + ddy) * dpr);
       }
     }
-    // Wandering cursor — the file is still being written
-    if (figureCells.length && (t % 1.2) < 0.8) {
-      const ci = Math.max(0, Math.min(figureCells.length - 1, Math.floor(vnoise(t * 0.06, 3.7) * (figureCells.length - 1))));
-      const cell = figureCells[ci];
-      ctx.fillStyle = 'hsla(' + (((hue + 40) % 360) | 0) + ',90%,72%,0.95)';
-      ctx.fillText('▮', cell[0] * CW * dpr, cell[1] * CH * dpr);
+    // A cursor block travels the contour — the outline is still being drawn
+    if (rimCells.length && (t % 1.1) < 0.8) {
+      const idx = rimCells[Math.floor(((t * 0.02) % 1) * rimCells.length)];
+      const rx = idx % cols, ry = ((idx / cols) | 0) - parallax;
+      ctx.fillStyle = 'hsla(' + (((hue + 45) % 360) | 0) + ',95%,75%,0.95)';
+      ctx.fillText('▮', (rx + 0.5) * CW * dpr, (ry + 0.5) * CH * dpr);
     }
   }
 
@@ -1969,15 +2103,23 @@ function initAmbient() {
     return;
   }
 
+  window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  window.addEventListener('scroll', () => {
+    scrollP = Math.max(0, Math.min(1, window.scrollY / (window.innerHeight * 0.9)));
+    document.body.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
   let lastDraw = 0, lastHue = 0;
   function frame(ts) {
     const t = ts / 1000;
     if (ts - lastHue > 120) {
       root.style.setProperty('--hue', ((BASE_HUE + t * HUE_SPEED) % 360).toFixed(1));
+      root.style.setProperty('--mx', (W && smx > -9000) ? (smx / W).toFixed(3) : '0.5');
+      root.style.setProperty('--my', (H && smy > -9000) ? (smy / H).toFixed(3) : '0.5');
       lastHue = ts;
     }
     const s1 = document.getElementById('screen-1');
-    if (ctx && s1 && s1.classList.contains('active') && ts - lastDraw > 70) {
+    if (ctx && s1 && s1.classList.contains('active') && ts - lastDraw > 45) {
       draw(t);
       lastDraw = ts;
     }
