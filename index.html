@@ -16,13 +16,14 @@
   --font-serif: "Newsreader", "Times New Roman", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-heading: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --color-paper: #F8F8F8;
-  --color-ink: #080808;
-  --color-muted: #6b6b6b;
-  --color-border: #e0e0de;
-  --color-accent: #F76B15;
-  --color-accent-hover: #080808;
-  --color-code-bg: #f5f5f4;
+  --hue: 210; /* driven by JS — the whole identity slowly cycles */
+  --color-paper: #0D0D12;
+  --color-ink: #EDEDEA;
+  --color-muted: #97979E;
+  --color-border: rgba(237, 237, 234, 0.14);
+  --color-accent: hsl(var(--hue), 85%, 62%);
+  --color-accent-hover: #EDEDEA;
+  --color-code-bg: rgba(255, 255, 255, 0.06);
   --radius-sm: 0.25rem;
   --radius-lg: 0.5rem;
 }
@@ -41,15 +42,14 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-::selection { background-color: rgba(247, 107, 21, 0.15); }
+::selection { background-color: hsla(var(--hue), 85%, 60%, 0.3); }
 
 .screen {
   display: none;
   min-height: 100vh;
   opacity: 0;
-  background-color: var(--color-paper);
-  background-image: url("assets/dots-tile.svg");
-  background-repeat: repeat;
+  position: relative;
+  z-index: 1;
 }
 .screen.active {
   display: block;
@@ -89,7 +89,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(22, 22, 28, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -191,7 +191,7 @@ h2 {
   width: 100%;
   line-height: 1.4;
 }
-.btn-primary:hover { background: rgba(8, 8, 8, 0.88); }
+.btn-primary:hover { background: rgba(237, 237, 234, 0.82); }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-secondary {
@@ -262,7 +262,7 @@ h2 {
 }
 .input-field:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(247, 107, 21, 0.15);
+  box-shadow: 0 0 0 2px hsla(var(--hue), 85%, 60%, 0.25);
 }
 .input-field::placeholder { color: rgba(120, 113, 108, 0.6); }
 
@@ -376,7 +376,7 @@ textarea.input-field {
   font-family: var(--font-sans);
   font-weight: 500;
 }
-.chat-send-btn:hover { background: rgba(8, 8, 8, 0.88); }
+.chat-send-btn:hover { background: rgba(237, 237, 234, 0.82); }
 
 /* Two column layout */
 .two-col {
@@ -458,7 +458,7 @@ textarea.input-field {
 }
 .voice-btn:hover { background: var(--color-border); border-color: var(--color-muted); }
 .voice-btn.recording {
-  background: rgba(247, 107, 21, 0.08);
+  background: hsla(var(--hue), 85%, 60%, 0.12);
   border-color: var(--color-accent);
 }
 .voice-btn .pulse-dot {
@@ -527,7 +527,7 @@ textarea.input-field {
 
 #screen-1 {
   font-family: var(--font-mono);
-  color: #000;
+  color: var(--color-ink);
   min-height: 100vh;
   flex-direction: column;
   position: relative;
@@ -543,10 +543,10 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(203, 203, 203, 0.3);
+  background: rgba(15, 15, 20, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 0 rgba(237, 237, 234, 0.07);
   border-radius: 0 0 13px 13px;
   padding: 0;
   height: auto;
@@ -565,7 +565,7 @@ textarea.input-field {
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: 1.75rem;
-  color: #000;
+  color: var(--color-ink);
   letter-spacing: -0.05em;
   cursor: pointer;
 }
@@ -587,7 +587,7 @@ textarea.input-field {
   font-weight: 500;
   font-size: 48px;
   letter-spacing: -0.03em;
-  color: #000;
+  color: var(--color-ink);
   text-align: center;
   margin-bottom: 3.5rem;
 }
@@ -603,11 +603,11 @@ textarea.input-field {
 .card-stack .file-card {
   position: absolute;
   top: 0; left: 0; right: 0;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(20, 20, 27, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(237, 237, 234, 0.1);
   border-radius: 12px;
   padding: 28px 32px;
   min-height: 280px;
@@ -642,7 +642,7 @@ textarea.input-field {
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: #000;
+  color: var(--color-ink);
   margin-bottom: 12px;
 }
 
@@ -654,7 +654,7 @@ textarea.input-field {
   color: var(--color-muted);
 }
 .file-card-desc code {
-  background: rgba(0,0,0,0.05);
+  background: rgba(237, 237, 234, 0.09);
   padding: 1px 5px;
   border-radius: 3px;
   font-size: 12px;
@@ -671,8 +671,8 @@ textarea.input-field {
 }
 
 #screen-1 .btn-primary {
-  background: #1C1917;
-  color: #FAFAF9;
+  background: var(--color-ink);
+  color: #0D0D12;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
@@ -684,32 +684,32 @@ textarea.input-field {
 
 /* Landing code block preview — light Figma style */
 #screen-1 .code-block {
-  background-color: #F5F5F4;
-  border: 1px solid #E7E5E4;
+  background-color: rgba(13, 13, 18, 0.72);
+  border: 1px solid rgba(237, 237, 234, 0.12);
   border-radius: 8px;
   width: 100%;
   max-width: 512px;
 }
 #screen-1 .code-block-header {
-  background-color: rgba(231, 229, 228, 0.5);
-  border-bottom: 1px solid #E7E5E4;
-  color: #78716C;
+  background-color: rgba(237, 237, 234, 0.05);
+  border-bottom: 1px solid rgba(237, 237, 234, 0.1);
+  color: #97979E;
   padding: 8px 16px;
 }
 #screen-1 .code-block-content {
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.625;
-  color: #1C1917;
+  color: #E4E4E0;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 19px;
 }
-#screen-1 .code-block-content .md-h1 { color: #1C1917; font-weight: 400; font-size: 12px; }
-#screen-1 .code-block-content .md-h2 { color: #1C1917; font-weight: 400; font-size: 12px; }
-#screen-1 .code-block-content .yaml-key { color: #1C1917; }
-#screen-1 .code-block-content .yaml-val { color: #1C1917; }
+#screen-1 .code-block-content .md-h1 { color: #EDEDEA; font-weight: 400; font-size: 12px; }
+#screen-1 .code-block-content .md-h2 { color: #EDEDEA; font-weight: 400; font-size: 12px; }
+#screen-1 .code-block-content .yaml-key { color: #B9B9C2; }
+#screen-1 .code-block-content .yaml-val { color: #E4E4E0; }
 #screen-1 .code-block-content .code-section {
   display: block;
 }
@@ -721,10 +721,10 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(203, 203, 203, 0.3);
+  background: rgba(15, 15, 20, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -1px 0 rgba(237, 237, 234, 0.07);
   border-radius: 13px 13px 0 0;
   padding: 17px 85px 17px;
   display: flex;
@@ -737,7 +737,7 @@ textarea.input-field {
   font-size: 16px;
   letter-spacing: -0.15em;
   line-height: 2.4;
-  color: #000;
+  color: var(--color-ink);
   text-decoration: none;
   transition: opacity 0.15s;
 }
@@ -758,9 +758,88 @@ textarea.input-field {
 @media (max-width: 400px) {
   .container { padding: 0 1rem; }
 }
+
+/* ===== AMBIENT IDENTITY LAYER — amorphous hue-shifting ground + ASCII human ===== */
+html { background: #0B0B0E; }
+
+.bg-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-aurora .blob {
+  position: absolute;
+  border-radius: 50%;
+  width: 58vw;
+  height: 58vw;
+  min-width: 460px;
+  min-height: 460px;
+  filter: blur(90px);
+  will-change: transform;
+  opacity: 0.55;
+}
+.bg-aurora .b1 {
+  top: -18%; left: -12%;
+  background: radial-gradient(circle at 40% 40%, hsla(var(--hue), 80%, 58%, 0.5), transparent 68%);
+  animation: blobDrift1 53s ease-in-out infinite alternate;
+}
+.bg-aurora .b2 {
+  bottom: -22%; right: -14%;
+  background: radial-gradient(circle at 55% 45%, hsla(calc(var(--hue) + 100), 75%, 55%, 0.42), transparent 68%);
+  animation: blobDrift2 67s ease-in-out infinite alternate;
+}
+.bg-aurora .b3 {
+  top: 26%; left: 32%;
+  width: 44vw; height: 44vw;
+  background: radial-gradient(circle at 50% 50%, hsla(calc(var(--hue) + 210), 70%, 60%, 0.3), transparent 62%);
+  animation: blobDrift3 89s ease-in-out infinite alternate;
+}
+.bg-aurora::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 38%, transparent 52%, rgba(6, 6, 10, 0.7));
+}
+@keyframes blobDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(14vw, 10vh) scale(1.15); }
+  100% { transform: translate(4vw, 22vh) scale(0.9); }
+}
+@keyframes blobDrift2 {
+  0%   { transform: translate(0, 0) scale(1.1); }
+  50%  { transform: translate(-12vw, -14vh) scale(0.88); }
+  100% { transform: translate(-20vw, -4vh) scale(1.2); }
+}
+@keyframes blobDrift3 {
+  0%   { transform: translate(0, 0) scale(0.9); }
+  50%  { transform: translate(-10vw, 8vh) scale(1.18); }
+  100% { transform: translate(8vw, -10vh) scale(1); }
+}
+
+.ascii-hero-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+#ascii-hero {
+  width: min(420px, 86vw);
+  aspect-ratio: 7 / 8;
+  display: block;
+  filter: drop-shadow(0 0 28px hsla(var(--hue), 80%, 60%, 0.22));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora .blob { animation: none; }
+}
 </style>
 </head>
 <body>
+
+<!-- Ambient identity layer: amorphous hue-shifting ground -->
+<div class="bg-aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 
 <!-- ============================================================
      SCREEN 1: LANDING
@@ -778,7 +857,8 @@ textarea.input-field {
   <!-- Hero content -->
   <div class="landing-hero">
 
-
+    <!-- Slow ASCII human — the file, made visible -->
+    <div class="ascii-hero-wrap" aria-hidden="true"><canvas id="ascii-hero"></canvas></div>
 
     <!-- Rolling card stack -->
     <div class="card-stack" id="card-stack">
@@ -832,7 +912,7 @@ I build things that make life better.
 I believe good tools disappear into the workflow.</div></div>
       </div>
 
-      <div style="text-align:center;margin-top:24px;font-family:var(--font-heading);font-size:18px;font-weight:500;letter-spacing:-0.02em;color:#000;">
+      <div style="text-align:center;margin-top:24px;font-family:var(--font-heading);font-size:18px;font-weight:500;letter-spacing:-0.02em;color:var(--color-ink);">
         control your experience, any AI anywhere
       </div>
     </div>
@@ -868,15 +948,15 @@ I believe good tools disappear into the workflow.</div></div>
 
       <!-- Path cards -->
       <div class="two-col mt-8" style="gap:1rem;">
-        <div class="card path-card" onclick="showScreen(4)" style="border:none;background:rgba(255,255,255,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
+        <div class="card path-card" onclick="showScreen(4)" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
           <div style="width:40px;height:40px;border-radius:10px;background:var(--color-ink);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <div style="font-family:var(--font-heading);font-size:1.25rem;font-weight:500;margin-bottom:0.5rem;letter-spacing:-0.025em;">Guided by NU</div>
           <div class="text-muted text-sm" style="line-height:1.6;margin-bottom:1.25rem;">I'll ask, you answer.<br>Takes about 2 minutes.</div>
           <button class="btn-primary" style="border-radius:8px;">Let's talk</button>
         </div>
-        <div class="card path-card" onclick="showScreen(5)" style="border:none;background:rgba(255,255,255,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
+        <div class="card path-card" onclick="showScreen(5)" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
           <div style="width:40px;height:40px;border-radius:10px;background:transparent;border:1.5px solid var(--color-border);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </div>
@@ -909,7 +989,7 @@ I believe good tools disappear into the workflow.</div></div>
     </div>
 
     <!-- Chat container -->
-    <div class="card mt-6" style="padding:0;overflow:hidden;border:none;background:rgba(255,255,255,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;">
+    <div class="card mt-6" style="padding:0;overflow:hidden;border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;">
       <div class="chat-area" id="chat-area"></div>
     </div>
 
@@ -940,7 +1020,7 @@ I believe good tools disappear into the workflow.</div></div>
       <div class="progress-bar" id="manual-progress" style="width:50%"></div>
     </div>
 
-    <div class="card mt-6" style="border:none;background:rgba(255,255,255,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem;">
+    <div class="card mt-6" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem;">
       <!-- Name -->
       <div class="form-field">
         <label class="form-label" for="m-name">Name</label>
@@ -1789,6 +1869,124 @@ function copyFile() {
 }
 
 // =============================================================
+// AMBIENT IDENTITY LAYER — hue drift + slow ASCII human
+// =============================================================
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ASCII_RAMP = ' ..::--=+>*#@';
+
+function nzHash(ix, iy) {
+  let n = (ix * 374761393 + iy * 668265263) | 0;
+  n = ((n ^ (n >>> 13)) * 1274126177) | 0;
+  return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+}
+function vnoise(x, y) {
+  const ix = Math.floor(x), iy = Math.floor(y);
+  const fx = x - ix, fy = y - iy;
+  const a = nzHash(ix, iy), b = nzHash(ix + 1, iy);
+  const c = nzHash(ix, iy + 1), d = nzHash(ix + 1, iy + 1);
+  const ex = fx * fx * (3 - 2 * fx), ey = fy * fy * (3 - 2 * fy);
+  return a + (b - a) * ex + (c - a) * ey + (d - b - c + a) * ex * ey;
+}
+// Head-and-shoulders silhouette in normalized [-1,1] space (y down)
+function figureMask(nx, ny) {
+  const hx = nx / 0.30, hy = (ny + 0.36) / 0.40;
+  const head = 1 - (hx * hx + hy * hy);
+  const kx = nx / 0.13, ky = (ny - 0.12) / 0.22;
+  const neck = 1 - (kx * kx * kx * kx + ky * ky);
+  const sx = nx / 0.80, sy = (ny - 0.92) / 0.55;
+  const shoulders = 1 - (sx * sx + sy * sy);
+  return Math.max(0, Math.min(1, Math.max(head, neck, shoulders) * 2.4));
+}
+
+function initAmbient() {
+  const root = document.documentElement;
+  const canvas = document.getElementById('ascii-hero');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  const CW = 7, CH = 11, BASE_HUE = 210, HUE_SPEED = 4; // deg/sec — full cycle every 90s
+  let cols = 0, rows = 0, dpr = 1, figureCells = [];
+
+  function resize() {
+    if (!canvas) return;
+    const r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(r.width * dpr);
+    canvas.height = Math.round(r.height * dpr);
+    cols = Math.max(1, Math.floor(r.width / CW));
+    rows = Math.max(1, Math.floor(r.height / CH));
+    figureCells = [];
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (figureMask(((x + 0.5) / cols) * 2 - 1, ((y + 0.5) / rows) * 2 - 1) > 0.5) figureCells.push([x, y]);
+      }
+    }
+  }
+
+  function draw(t) {
+    // Self-heal: if the page loaded in a hidden tab, the first resize() saw a 0×0 rect
+    if (canvas.width === 0 || canvas.height === 0) {
+      resize();
+      if (canvas.width === 0) return;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = (10 * dpr) + 'px "JetBrains Mono", monospace';
+    ctx.textBaseline = 'top';
+    const hue = (BASE_HUE + t * HUE_SPEED) % 360;
+    const breathe = 1 + 0.022 * Math.sin(t * 0.55);
+    for (let y = 0; y < rows; y++) {
+      const nyRaw = ((y + 0.5) / rows) * 2 - 1;
+      for (let x = 0; x < cols; x++) {
+        const nx = (((x + 0.5) / cols) * 2 - 1) / breathe;
+        const ny = nyRaw / breathe;
+        const m = figureMask(nx, ny);
+        if (m <= 0.02) continue;
+        const n = vnoise(nx * 3.1 + t * 0.16, ny * 3.1 - t * 0.1) * 0.72
+                + vnoise(nx * 7.3 + t * 0.05, ny * 7.3 + 40) * 0.28;
+        const b = m * (0.3 + 0.7 * n);
+        if (b < 0.07) continue;
+        const ch = ASCII_RAMP[Math.min(ASCII_RAMP.length - 1, Math.floor(b * ASCII_RAMP.length))];
+        const h = (hue + n * 70 + ny * 25 + 360) % 360;
+        ctx.fillStyle = 'hsla(' + (h | 0) + ',80%,' + ((45 + b * 33) | 0) + '%,' + (0.22 + 0.78 * b).toFixed(2) + ')';
+        ctx.fillText(ch, x * CW * dpr, y * CH * dpr);
+      }
+    }
+    // Wandering cursor — the file is still being written
+    if (figureCells.length && (t % 1.2) < 0.8) {
+      const ci = Math.max(0, Math.min(figureCells.length - 1, Math.floor(vnoise(t * 0.06, 3.7) * (figureCells.length - 1))));
+      const cell = figureCells[ci];
+      ctx.fillStyle = 'hsla(' + (((hue + 40) % 360) | 0) + ',90%,72%,0.95)';
+      ctx.fillText('▮', cell[0] * CW * dpr, cell[1] * CH * dpr);
+    }
+  }
+
+  if (canvas && ctx) {
+    resize();
+    window.addEventListener('resize', resize);
+  }
+
+  if (REDUCED_MOTION) {
+    root.style.setProperty('--hue', String(BASE_HUE));
+    if (ctx) draw(8); // one composed frame, no motion
+    return;
+  }
+
+  let lastDraw = 0, lastHue = 0;
+  function frame(ts) {
+    const t = ts / 1000;
+    if (ts - lastHue > 120) {
+      root.style.setProperty('--hue', ((BASE_HUE + t * HUE_SPEED) % 360).toFixed(1));
+      lastHue = ts;
+    }
+    const s1 = document.getElementById('screen-1');
+    if (ctx && s1 && s1.classList.contains('active') && ts - lastDraw > 70) {
+      draw(t);
+      lastDraw = ts;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+// =============================================================
 // ROLLING CARD STACK
 // =============================================================
 function initCardStack() {
@@ -1837,6 +2035,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Rolling card stack
   initCardStack();
+
+  // Ambient identity layer (aurora hue + ASCII human)
+  initAmbient();
 
   // Populate static voice buttons with SVG
   document.querySelectorAll('.voice-btn:not([data-dynamic])').forEach(btn => {
