@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>human.md — define yourself before they do</title>
 <meta name="description" content="A personal identity file for the AI age. An open standard for LLM-friendly personal context.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,10 +48,8 @@ body {
   min-height: 100vh;
   opacity: 0;
   background-color: var(--color-paper);
-  background-image: url("assets/dots-bg.svg");
-  background-size: 100% auto;
-  background-position: center top;
-  background-repeat: repeat-y;
+  background-image: url("assets/dots-tile.svg");
+  background-repeat: repeat;
 }
 .screen.active {
   display: block;
@@ -69,34 +64,6 @@ body {
   .screen.active { animation: none; opacity: 1; }
 }
 
-/* Navigation — frosted glass for all screens (matches landing nav) */
-.site-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(203, 203, 203, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 0 0 13px 13px;
-  padding: 12px 0;
-  border: none;
-}
-.site-nav .nav-inner {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.site-nav .nav-badge {
-  position: absolute;
-  right: 2.5rem;
-}
 .nav-logo {
   font-family: var(--font-heading);
   font-size: 1.75rem;
@@ -105,24 +72,6 @@ body {
   text-decoration: none;
   cursor: pointer;
   letter-spacing: -0.05em;
-}
-.nav-logo .accent { color: var(--color-muted); }
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.nav-links a, .nav-links span {
-  font-size: 0.875rem;
-  color: var(--color-muted);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.nav-links a:hover { color: var(--color-ink); }
-.nav-badge {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-muted);
 }
 
 .container {
@@ -334,25 +283,6 @@ textarea.input-field {
   margin-bottom: 0.5rem;
 }
 
-/* Divider */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 1.25rem 0;
-}
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--color-border);
-}
-.divider span {
-  font-size: 0.75rem;
-  color: var(--color-muted);
-  white-space: nowrap;
-}
-
 /* Progress bar */
 .progress-wrap {
   height: 3px;
@@ -367,54 +297,6 @@ textarea.input-field {
   border-radius: 99px;
   transition: width 0.4s ease;
   width: 0%;
-}
-
-/* Header row */
-.header-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-top: 1.5rem;
-}
-
-/* NU Bot */
-.nu-bot-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.nu-grid {
-  display: grid;
-  grid-template-columns: repeat(16, 6px);
-  grid-template-rows: repeat(10, 6px);
-  gap: 3px;
-}
-.nu-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-ink);
-  opacity: 0.04;
-  transition: height 0.08s ease, border-radius 0.08s ease, margin-top 0.08s ease, opacity 0.08s ease;
-}
-.nu-dot.eye {
-  opacity: 0.55;
-}
-.nu-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(8, 8, 8, 0.12);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-/* Happy eyes (screen 6) */
-.nu-dot.eye-happy {
-  opacity: 0.55;
-  border-radius: 50% 50% 0 0;
-  height: 3px;
-  margin-top: 3px;
 }
 
 /* Speech bubble */
@@ -503,44 +385,6 @@ textarea.input-field {
   gap: 0.75rem;
   align-items: stretch;
 }
-
-/* Password field wrap */
-.pass-wrap { position: relative; }
-.pass-toggle {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-muted);
-  display: flex;
-  align-items: center;
-  padding: 0;
-  transition: color 0.15s;
-}
-.pass-toggle:hover { color: var(--color-ink); }
-
-/* Social auth button */
-.btn-social {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0.625rem 1.25rem;
-  font-size: 0.875rem;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--color-ink);
-  transition: background-color 0.15s, border-color 0.15s;
-}
-.btn-social:hover { background: var(--color-code-bg); border-color: var(--color-muted); }
 
 /* Skip link */
 .skip-link {
@@ -633,31 +477,6 @@ textarea.input-field {
 }
 .no-speech-api .voice-btn { display: none !important; }
 
-/* Free-text expander for chip steps */
-.freetext-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  background: none;
-  border: none;
-  color: var(--color-muted);
-  font-size: 0.8125rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  padding: 0;
-  transition: color 0.15s;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.freetext-toggle:hover { color: var(--color-ink); }
-
-.freetext-area {
-  margin-top: 0.5rem;
-}
-.freetext-area textarea {
-  margin-bottom: 0.5rem;
-}
-
 /* Back button */
 .back-btn {
   display: inline-flex;
@@ -675,17 +494,6 @@ textarea.input-field {
 }
 .back-btn:hover { color: var(--color-ink); }
 
-/* Blinking animation overrides */
-.nu-dot.eye.blink {
-  border-radius: 2px;
-  height: 1px;
-  width: 6px;
-}
-.nu-dot.eye-happy.blink {
-  height: 1px;
-  margin-top: 5px;
-}
-
 /* Copy button inside code blocks */
 .copy-btn {
   font-size: 0.75rem;
@@ -698,18 +506,6 @@ textarea.input-field {
   padding: 0;
 }
 .copy-btn:hover { color: var(--color-ink); }
-
-/* Hero buttons row */
-.hero-buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  justify-content: center;
-}
-.hero-buttons .btn-primary,
-.hero-buttons .btn-secondary {
-  width: auto;
-}
 
 /* Footer */
 .site-footer {
@@ -726,104 +522,6 @@ textarea.input-field {
 }
 .site-footer a:hover { color: var(--color-ink); }
 .footer-sep { margin: 0 0.5rem; }
-
-/* Landing example card description */
-.card-item {
-  font-size: 0.875rem;
-  margin-top: 0.375rem;
-  color: var(--color-muted);
-  line-height: 1.5;
-}
-
-
-/* Landing page specific */
-.landing-preview {
-  max-width: 38rem;
-  margin: 0 auto;
-}
-
-.protocol-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem 2rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.65;
-}
-
-.protocol-section {
-  margin-bottom: 1rem;
-}
-.protocol-section:last-child { margin-bottom: 0; }
-
-.protocol-section .proto-h2 {
-  font-weight: 600;
-  color: var(--color-ink);
-  font-size: 12px;
-  margin-bottom: 0.375rem;
-}
-
-.protocol-section .proto-keys {
-  color: var(--color-muted);
-  font-size: 11px;
-  margin-bottom: 0.25rem;
-}
-
-.protocol-section .proto-desc {
-  color: var(--color-ink);
-  font-size: 11px;
-  opacity: 0.7;
-}
-
-.bottom-nav {
-  width: 100%;
-  padding: 1rem 0;
-  background: rgba(242, 242, 240, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--color-border);
-}
-
-.bottom-nav-inner {
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-}
-
-.bottom-nav a {
-  color: var(--color-muted);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.bottom-nav a:hover { color: var(--color-ink); }
-.bottom-nav .version {
-  color: var(--color-muted);
-  font-size: 0.75rem;
-}
-
-/* NU SVG face animation */
-.nu-svg-face {
-  position: relative;
-}
-.nu-face-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-.nu-face-img.active {
-  opacity: 1;
-}
 
 /* ===== SCREEN 1 LANDING STYLES ===== */
 
@@ -871,19 +569,6 @@ textarea.input-field {
   letter-spacing: -0.05em;
   cursor: pointer;
 }
-
-.landing-nav .nav-blog {
-  position: absolute;
-  right: 2.5rem;
-  font-family: var(--font-mono);
-  font-weight: 300;
-  font-size: 24px;
-  letter-spacing: -0.1em;
-  color: #000;
-  text-decoration: none;
-  transition: opacity 0.15s;
-}
-.landing-nav .nav-blog:hover { opacity: 0.6; }
 
 /* Landing hero area */
 .landing-hero {
@@ -988,7 +673,6 @@ textarea.input-field {
 #screen-1 .btn-primary {
   background: #1C1917;
   color: #FAFAF9;
-  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
@@ -1059,38 +743,13 @@ textarea.input-field {
 }
 .landing-footer a:hover { opacity: 0.6; }
 
-/* Hide old bottom-nav on screen 1, replaced by landing-footer */
-#screen-1 .bottom-nav { display: none; }
-
-/* Background SVG shape — the large white shape behind content */
-.landing-bg-shape {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 98%;
-  height: 98%;
-  pointer-events: none;
-  z-index: 0;
-}
-.landing-bg-shape svg {
-  width: 100%;
-  height: 100%;
-}
-
 .landing-hero > * { position: relative; z-index: 1; }
 
 @media (max-width: 640px) {
   .two-col { grid-template-columns: 1fr; }
   .btn-row { grid-template-columns: 1fr; }
   h1 { font-size: 2.25rem !important; }
-  .hero-buttons { flex-direction: column; }
-  .hero-buttons .btn-primary,
-  .hero-buttons .btn-secondary { width: 100%; }
   .chat-area { min-height: 260px; max-height: 340px; }
-  .nav-links { gap: 1rem; }
-  .nav-links a, .nav-links span { font-size: 0.8125rem; }
-  .protocol-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .card-stack { width: 90vw; max-width: 360px; height: 300px; }
   .landing-title { font-size: 32px; }
 
@@ -1098,7 +757,6 @@ textarea.input-field {
 }
 @media (max-width: 400px) {
   .container { padding: 0 1rem; }
-  .site-nav .nav-inner { padding: 0 1rem; }
 }
 </style>
 </head>
@@ -1112,7 +770,6 @@ textarea.input-field {
   <nav class="landing-nav">
     <div class="nav-inner">
       <span class="nav-logo" onclick="showScreen(1)">human.md</span>
-      <a class="nav-blog" href="#" target="_blank">blog</a>
     </div>
   </nav>
 
@@ -1155,7 +812,7 @@ textarea.input-field {
     <!-- CTA -->
     <div class="landing-cta-wrap">
       <div style="width:291px;">
-        <button class="btn-primary" onclick="showScreen(2)">Your Experience, Any AI</button>
+        <button class="btn-primary" onclick="showScreen(3)">Your Experience, Any AI</button>
       </div>
     </div>
 
@@ -1166,11 +823,11 @@ textarea.input-field {
           <span>human.md</span>
           <span class="text-xs">yoursite.com/human.md</span>
         </div>
-        <div class="code-block-content"><div class="code-section"># Geoff LaCorte</div><div class="code-section">> Designer building products for the future</div><div class="code-section">## Communication
+        <div class="code-block-content"><div class="code-section"># Alex Rivera</div><div class="code-section">> Product designer who thinks in systems</div><div class="code-section">## Communication
 - tone: Direct &amp; warm
 - verbosity: Balanced</div><div class="code-section">## Preferences
 - never: Corporate jargon, sycophantic praise
-- address_me_as: G</div><div class="code-section">## Soul
+- address_me_as: Alex</div><div class="code-section">## Soul
 I build things that make life better.
 I believe good tools disappear into the workflow.</div></div>
       </div>
@@ -1186,81 +843,13 @@ I believe good tools disappear into the workflow.</div></div>
 
   <!-- Footer — frosted glass bar -->
   <div class="landing-footer">
-    <a href="#" target="_blank">Github</a>
-    <a href="#" target="_blank">Twitter</a>
-    <a href="#" target="_blank">Nulayer</a>
-  </div>
-</div>
-
-<!-- ============================================================
-     SCREEN 2: SIGN UP
-     ============================================================ -->
-<div class="screen" id="screen-2">
-  <nav class="landing-nav">
-    <div class="nav-inner">
-      <span class="nav-logo" onclick="showScreen(1)">human.md</span>
-    </div>
-  </nav>
-
-  <div class="section" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:2rem 0;">
-    <div class="container" style="max-width:26rem;width:100%;">
-      <div class="text-center mb-6">
-        <div class="speech-bubble mt-4" style="max-width:20rem;margin-left:auto;margin-right:auto;">
-          <p style="font-size:0.9375rem;text-align:center;line-height:1.6;">let's get you set up. takes 30 seconds.</p>
-        </div>
-      </div>
-
-      <div class="card" style="border:none;background:rgba(255,255,255,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem;">
-        <h2 style="font-family:var(--font-heading);font-size:1.5rem;margin-bottom:0.25rem;font-weight:500;letter-spacing:-0.025em;">Create your account</h2>
-        <p class="text-muted text-sm" style="margin-bottom:1.75rem;">One file. Every AI knows you.</p>
-
-        <!-- Social auth -->
-        <button class="btn-social" onclick="showScreen(3)" style="margin-bottom:0.75rem;">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
-            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#1a73e8"/>
-            <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
-            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-          </svg>
-          Continue with Google
-        </button>
-        <button class="btn-social" onclick="showScreen(3)">
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" fill="#000"/>
-          </svg>
-          Continue with GitHub
-        </button>
-
-        <div class="divider"><span>or</span></div>
-
-        <!-- Email -->
-        <div style="margin-bottom:0.75rem;">
-          <input type="email" class="input-field" placeholder="Email address" id="signup-email">
-        </div>
-
-        <!-- Password -->
-        <div class="pass-wrap" style="margin-bottom:1.5rem;">
-          <input type="password" class="input-field" placeholder="Password" id="signup-pass" style="padding-right:2.75rem;">
-          <button class="pass-toggle" id="pass-toggle-btn" type="button" onclick="togglePassword()">
-            <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </button>
-        </div>
-
-        <button class="btn-primary" onclick="showScreen(3)" style="border-radius:8px;padding:0.75rem 1.25rem;font-size:0.9375rem;">Create account</button>
-      </div>
-
-      <div class="text-center mt-6 text-sm text-muted">
-        Already have an account? <a href="#" onclick="showScreen(3);return false;" style="color:var(--color-ink);font-weight:500;text-decoration:underline;text-underline-offset:2px;">Sign in</a>
-      </div>
-    </div>
+    <a href="https://github.com/816enter-png" target="_blank" rel="noopener">Github</a>
   </div>
 </div>
 
 <!-- ============================================================
      SCREEN 3: CHOOSE YOUR PATH
+     (screen 2, the fake signup, was removed — numbering intentionally kept)
      ============================================================ -->
 <div class="screen" id="screen-3">
   <nav class="landing-nav">
@@ -1274,6 +863,8 @@ I believe good tools disappear into the workflow.</div></div>
       <div class="speech-bubble mt-4" style="max-width:24rem;margin-left:auto;margin-right:auto;">
         <p style="font-size:1rem;text-align:center;line-height:1.6;">how would you like to set up your identity file?</p>
       </div>
+
+      <p class="text-muted text-xs mt-3">No account needed — everything stays on your device.</p>
 
       <!-- Path cards -->
       <div class="two-col mt-8" style="gap:1rem;">
@@ -1296,7 +887,7 @@ I believe good tools disappear into the workflow.</div></div>
       </div>
 
       <div class="text-center mt-6">
-        <button class="back-btn" onclick="showScreen(2)" style="font-size:0.8125rem;">← back to sign up</button>
+        <button class="back-btn" onclick="showScreen(1)" style="font-size:0.8125rem;">← back</button>
       </div>
     </div>
   </div>
@@ -1355,7 +946,7 @@ I believe good tools disappear into the workflow.</div></div>
         <label class="form-label" for="m-name">Name</label>
         <div style="display:flex;gap:0.5rem;align-items:flex-start;">
           <input type="text" class="input-field" id="m-name" placeholder="Your full name">
-          <button class="voice-btn" type="button" onclick="startVoiceInput(this)" title="Voice input"></button>
+          <button class="voice-btn" type="button" onclick="startVoiceInput(this, 'm-name')" title="Voice input"></button>
         </div>
       </div>
 
@@ -1364,7 +955,7 @@ I believe good tools disappear into the workflow.</div></div>
         <label class="form-label" for="m-preferred">Preferred name</label>
         <div style="display:flex;gap:0.5rem;align-items:flex-start;">
           <input type="text" class="input-field" id="m-preferred" placeholder="What should AI call you?">
-          <button class="voice-btn" type="button" onclick="startVoiceInput(this)" title="Voice input"></button>
+          <button class="voice-btn" type="button" onclick="startVoiceInput(this, 'm-preferred')" title="Voice input"></button>
         </div>
       </div>
 
@@ -1418,7 +1009,7 @@ I believe good tools disappear into the workflow.</div></div>
         <label class="form-label" for="m-toolkit">Toolkit</label>
         <div style="display:flex;gap:0.5rem;align-items:flex-start;">
           <input type="text" class="input-field" id="m-toolkit" placeholder="Figma, VS Code, Slack, Notion...">
-          <button class="voice-btn" type="button" onclick="startVoiceInput(this)" title="Voice input"></button>
+          <button class="voice-btn" type="button" onclick="startVoiceInput(this, 'm-toolkit')" title="Voice input"></button>
         </div>
       </div>
 
@@ -1427,7 +1018,7 @@ I believe good tools disappear into the workflow.</div></div>
         <label class="form-label" for="m-rightnow">Right Now</label>
         <div style="display:flex;gap:0.5rem;align-items:flex-start;">
           <input type="text" class="input-field" id="m-rightnow" placeholder="Building a startup, learning piano, training for a race...">
-          <button class="voice-btn" type="button" onclick="startVoiceInput(this)" title="Voice input"></button>
+          <button class="voice-btn" type="button" onclick="startVoiceInput(this, 'm-rightnow')" title="Voice input"></button>
         </div>
       </div>
 
@@ -1437,7 +1028,7 @@ I believe good tools disappear into the workflow.</div></div>
         <div class="text-sm text-muted mb-2" style="font-style:italic;">In your own words — who are you?</div>
         <div style="display:flex;gap:0.5rem;align-items:flex-start;">
           <textarea class="input-field" id="m-soul" rows="7" style="min-height:160px;" placeholder="Write freely..."></textarea>
-          <button class="voice-btn" type="button" onclick="startVoiceInput(this)" title="Voice input"></button>
+          <button class="voice-btn" type="button" onclick="startVoiceInput(this, 'm-soul')" title="Voice input"></button>
         </div>
       </div>
 
@@ -1489,7 +1080,7 @@ I believe good tools disappear into the workflow.</div></div>
       <div class="text-center mt-6 text-sm text-muted" style="line-height:1.6;">Paste this into any AI conversation<br>and see the difference.</div>
 
       <div class="text-center mt-4">
-        <button class="back-btn" onclick="showScreen(1)" style="font-size:0.8125rem;">← start over</button>
+        <button class="back-btn" onclick="startOver()" style="font-size:0.8125rem;">← start over</button>
       </div>
 
       <div style="height:3rem;"></div>
@@ -1514,10 +1105,72 @@ const state = {
 };
 
 // =============================================================
+// PERSISTENCE (localStorage)
+// =============================================================
+const STORAGE_KEY = 'humanmd_state';
+
+function saveState() {
+  cachedFile = null; // any state change invalidates the generated file
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* storage unavailable */ }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (!saved || typeof saved !== 'object') return;
+    Object.keys(state).forEach(k => {
+      if (saved[k] !== undefined && (Array.isArray(state[k]) === Array.isArray(saved[k]))) {
+        state[k] = saved[k];
+      }
+    });
+  } catch (e) { /* corrupt or unavailable storage — start fresh */ }
+}
+
+function resetState() {
+  state.name = '';
+  state.preferred = '';
+  state.tone = '';
+  state.verbosity = '';
+  state.nevers = [];
+  state.accessibility = [];
+  state.toolkit = '';
+  state.rightnow = '';
+  state.soul = '';
+  cachedFile = null;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) { /* storage unavailable */ }
+  syncManualForm();
+}
+
+function startOver() {
+  resetState();
+  showScreen(1);
+}
+
+// Reflect state into the manual form (on load-restore and on reset)
+function syncManualForm() {
+  const fields = { 'm-name': state.name, 'm-preferred': state.preferred, 'm-toolkit': state.toolkit, 'm-rightnow': state.rightnow, 'm-soul': state.soul };
+  Object.keys(fields).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = fields[id];
+  });
+  syncChipGroup('m-tone-chips', [state.tone]);
+  syncChipGroup('m-verbosity-chips', [state.verbosity]);
+  syncChipGroup('m-never-chips', state.nevers);
+  syncChipGroup('m-access-chips', state.accessibility);
+}
+
+function syncChipGroup(groupId, values) {
+  const group = document.getElementById(groupId);
+  if (!group) return;
+  group.querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', values.includes(c.dataset.val)));
+}
+
+// =============================================================
 // SCREEN MANAGEMENT
 // =============================================================
 function showScreen(n) {
-  console.log('[humanmd] showScreen called with:', n);
   // Hide all screens
   const screens = document.querySelectorAll('.screen');
   screens.forEach(s => {
@@ -1529,87 +1182,15 @@ function showScreen(n) {
   const target = document.getElementById('screen-' + n);
   if (target) {
     target.classList.add('active');
-    target.style.display = 'block';
+    target.style.display = ''; // let CSS classes drive layout (screen 1 is flex)
     target.style.opacity = '1';
     target.style.visibility = 'visible';
     target.style.position = 'relative';
     target.style.zIndex = '10';
     window.scrollTo(0, 0);
-    console.log('[humanmd] screen-' + n + ' is now visible, display:', target.style.display, 'opacity:', target.style.opacity);
-  } else {
-    console.error('[humanmd] screen-' + n + ' NOT FOUND in DOM!');
   }
   if (n === 4) initGuidedConversation();
   if (n === 6) renderFile();
-}
-
-// =============================================================
-// NU BOT BUILDER
-// =============================================================
-function getEyeIndices() {
-  const eyes = [];
-  for (let r = 3; r <= 4; r++) {
-    for (let c = 4; c <= 5; c++) {
-      eyes.push(r * 16 + c);
-    }
-  }
-  for (let r = 3; r <= 4; r++) {
-    for (let c = 10; c <= 11; c++) {
-      eyes.push(r * 16 + c);
-    }
-  }
-  return eyes;
-}
-
-const EYE_INDICES = getEyeIndices();
-
-function buildNuGrid(containerId, happy = false) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = '';
-  for (let i = 0; i < 160; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('nu-dot');
-    if (EYE_INDICES.includes(i)) {
-      if (happy) {
-        dot.classList.add('eye-happy');
-      } else {
-        dot.classList.add('eye');
-      }
-    }
-    container.appendChild(dot);
-  }
-}
-
-// =============================================================
-// BLINK ANIMATION
-// =============================================================
-const blinkGridIds = ['nu-grid-2', 'nu-grid-3', 'nu-grid-4', 'nu-grid-6'];
-const blinkTimers = {};
-
-function scheduleBlink(gridId) {
-  if (blinkTimers[gridId]) clearTimeout(blinkTimers[gridId]);
-  const delay = 2000 + Math.random() * 3000;
-  blinkTimers[gridId] = setTimeout(() => {
-    doBlink(gridId);
-  }, delay);
-}
-
-function doBlink(gridId) {
-  const container = document.getElementById(gridId);
-  if (!container) return;
-  const isHappy = (gridId === 'nu-grid-6');
-  const eyeClass = isHappy ? 'eye-happy' : 'eye';
-  const eyes = container.querySelectorAll('.' + eyeClass);
-  eyes.forEach(e => e.classList.add('blink'));
-  setTimeout(() => {
-    eyes.forEach(e => e.classList.remove('blink'));
-    scheduleBlink(gridId);
-  }, 200);
-}
-
-function startAllBlinks() {
-  blinkGridIds.forEach(id => scheduleBlink(id));
 }
 
 // =============================================================
@@ -1633,21 +1214,6 @@ async function typeText(element, text, speed = 30) {
 }
 
 // =============================================================
-// PASSWORD TOGGLE
-// =============================================================
-function togglePassword() {
-  const passInput = document.getElementById('signup-pass');
-  const eyeIcon = document.getElementById('eye-icon');
-  if (passInput.type === 'password') {
-    passInput.type = 'text';
-    eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
-  } else {
-    passInput.type = 'password';
-    eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-  }
-}
-
-// =============================================================
 // SINGLE-SELECT CHIPS
 // =============================================================
 function setupSingleSelect(groupId, stateKey) {
@@ -1658,6 +1224,7 @@ function setupSingleSelect(groupId, stateKey) {
       group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
       chip.classList.add('selected');
       state[stateKey] = chip.dataset.val;
+      saveState();
     });
   });
 }
@@ -1667,15 +1234,26 @@ function setupMultiSelect(groupId, stateKey) {
   if (!group) return;
   group.querySelectorAll('.chip').forEach(chip => {
     chip.addEventListener('click', () => {
-      chip.classList.toggle('selected');
       const val = chip.dataset.val;
       const arr = state[stateKey];
+      // "None" is mutually exclusive with every other chip
+      if (val === 'None') {
+        group.querySelectorAll('.chip').forEach(c => { if (c !== chip) c.classList.remove('selected'); });
+        arr.length = 0;
+      } else {
+        const noneChip = group.querySelector('.chip[data-val="None"]');
+        if (noneChip) noneChip.classList.remove('selected');
+        const ni = arr.indexOf('None');
+        if (ni > -1) arr.splice(ni, 1);
+      }
+      chip.classList.toggle('selected');
       if (chip.classList.contains('selected')) {
         if (!arr.includes(val)) arr.push(val);
       } else {
         const idx = arr.indexOf(val);
         if (idx > -1) arr.splice(idx, 1);
       }
+      saveState();
     });
   });
 }
@@ -1691,6 +1269,7 @@ function manualSubmit() {
   state.rightnow = document.getElementById('m-rightnow').value.trim();
   if (!state.tone) state.tone = 'Not specified';
   if (!state.verbosity) state.verbosity = 'Not specified';
+  saveState();
   showScreen(6);
 }
 
@@ -1724,6 +1303,7 @@ async function appendNuMessage(text) {
 }
 
 function appendUserMessage(text) {
+  if (!text) return; // skipped steps produce no empty bubble
   const area = document.getElementById('chat-area');
   const bubble = document.createElement('div');
   bubble.classList.add('chat-bubble', 'user');
@@ -1749,6 +1329,7 @@ async function runGuidedStep(step) {
     renderTextInput('Your name', '## Identity', async (val) => {
       if (!val) return;
       state.name = val;
+      saveState();
       appendUserMessage(val);
       clearInputArea();
       await runGuidedStep(2);
@@ -1758,6 +1339,7 @@ async function runGuidedStep(step) {
     renderTextInput('Preferred name', '## Identity', async (val) => {
       if (!val) return;
       state.preferred = val || state.name;
+      saveState();
       appendUserMessage(val);
       clearInputArea();
       await runGuidedStep(3);
@@ -1768,6 +1350,7 @@ async function runGuidedStep(step) {
       'Direct & warm', 'Professional & precise', 'Casual & relaxed', 'Friendly & encouraging'
     ], '## Communication', false, async (val) => {
       state.tone = val;
+      saveState();
       appendUserMessage(val);
       clearInputArea();
       await runGuidedStep(4);
@@ -1776,6 +1359,7 @@ async function runGuidedStep(step) {
     await appendNuMessage("got it. how much detail do you want?");
     renderChipSelect(['Concise', 'Balanced', 'Detailed'], '## Communication', false, async (val) => {
       state.verbosity = val;
+      saveState();
       appendUserMessage(val);
       clearInputArea();
       await runGuidedStep(5);
@@ -1785,6 +1369,7 @@ async function runGuidedStep(step) {
     const opts = ['Corporate jargon', 'Sycophantic praise', 'Unsolicited advice', 'Emojis', 'Over-explaining'];
     renderChipMultiSelect(opts, '## Boundaries', true, async (vals) => {
       state.nevers = vals;
+      saveState();
       appendUserMessage(vals.length > 0 ? vals.join(', ') : 'Skip');
       clearInputArea();
       await runGuidedStep(6);
@@ -1794,6 +1379,7 @@ async function runGuidedStep(step) {
     const opts = ['ADHD — reduce options', 'Visual/spatial learner', 'Chunk info into sections', 'No sudden sounds', 'None'];
     renderChipMultiSelect(opts, '## Accessibility', false, async (vals) => {
       state.accessibility = vals;
+      saveState();
       appendUserMessage(vals.length > 0 ? vals.join(', ') : 'None');
       clearInputArea();
       await runGuidedStep(7);
@@ -1802,6 +1388,7 @@ async function runGuidedStep(step) {
     await appendNuMessage("what tools do you use daily? helps agents speak your language.");
     renderTextInput('Figma, VS Code, Slack, Notion...', '## Toolkit', async (val) => {
       state.toolkit = val.trim();
+      saveState();
       appendUserMessage(val.length > 60 ? val.substring(0, 60) + '...' : val);
       clearInputArea();
       await runGuidedStep(8);
@@ -1810,6 +1397,7 @@ async function runGuidedStep(step) {
     await appendNuMessage("what are you focused on right now?");
     renderTextInput('Building a startup, learning piano, training for a race...', '## Right Now', async (val) => {
       state.rightnow = val.trim();
+      saveState();
       appendUserMessage(val.length > 60 ? val.substring(0, 60) + '...' : val);
       clearInputArea();
       await runGuidedStep(9);
@@ -1818,6 +1406,7 @@ async function runGuidedStep(step) {
     await appendNuMessage("last one — and this is the important one. in your own words, who are you? no rules. just you.");
     renderTextarea('## Soul', async (val) => {
       state.soul = val.trim();
+      saveState();
       appendUserMessage(val.length > 60 ? val.substring(0, 60) + '...' : val);
       clearInputArea();
       await runGuidedStep(10);
@@ -1845,7 +1434,7 @@ if (!SpeechRecognition) {
   document.documentElement.classList.add('no-speech-api');
 }
 
-function startVoiceInput(btnEl) {
+function startVoiceInput(btnEl, targetId) {
   if (!SpeechRecognition) return;
   const voiceBtn = btnEl.closest('.voice-btn') || btnEl;
 
@@ -1860,6 +1449,10 @@ function startVoiceInput(btnEl) {
     try { speechRec.abort(); } catch(e) {}
   }
 
+  // Explicit target: every voice button passes the id of the input it fills
+  const target = targetId ? document.getElementById(targetId) : null;
+  if (!target) return;
+
   speechRec = new SpeechRecognition();
   speechRec.lang = 'en-US';
   speechRec.interimResults = true;
@@ -1868,19 +1461,7 @@ function startVoiceInput(btnEl) {
   activeVoiceBtn = voiceBtn;
   voiceBtn.classList.add('recording');
 
-  // Find the target textarea/input - look for nearest sibling or parent-sibling textarea/input
-  let target = voiceBtn.closest('[style*="display:flex"]')
-    ? voiceBtn.closest('[style*="display:flex"]').querySelector('textarea, input[type="text"]')
-    : null;
-  if (!target) {
-    target = voiceBtn.closest('.form-field')
-      ? voiceBtn.closest('.form-field').querySelector('textarea, input[type="text"]')
-      : null;
-  }
-  if (!target) {
-    target = document.querySelector('#guided-textarea, #guided-freetext, #m-soul, #m-toolkit, #m-rightnow');
-  }
-  let priorText = target ? target.value : '';
+  let priorText = target.value;
 
   speechRec.onresult = (event) => {
     if (!target) return;
@@ -1940,7 +1521,7 @@ function renderTextInput(placeholder, sectionHeader, onSubmit, skipOnEmpty) {
   };
   btn.addEventListener('click', submit);
   ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); } });
-  voiceBtn.addEventListener('click', (e) => startVoiceInput(e.currentTarget));
+  voiceBtn.addEventListener('click', (e) => startVoiceInput(e.currentTarget, 'guided-textarea'));
   const skipBtn = document.getElementById('guided-skip-btn');
   if (skipBtn) skipBtn.addEventListener('click', () => onSubmit(''));
   setTimeout(() => ta.focus(), 50);
@@ -1971,7 +1552,7 @@ function renderChipSelect(options, sectionHeader, _unused, onSelect) {
     if (val) onSelect(val);
   });
   ftArea.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const val = ftArea.value.trim(); if (val) onSelect(val); } });
-  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget));
+  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget, 'guided-freetext'));
 }
 
 function renderChipMultiSelect(options, sectionHeader, hasSkip, onSubmit) {
@@ -1994,10 +1575,24 @@ function renderChipMultiSelect(options, sectionHeader, hasSkip, onSubmit) {
   const selected = [];
   area.querySelectorAll('.chip').forEach(chip => {
     chip.addEventListener('click', () => {
-      chip.classList.toggle('selected');
       const val = chip.dataset.val;
+      // "None" is mutually exclusive with every other chip
+      if (val === 'None') {
+        area.querySelectorAll('.chip').forEach(c => { if (c !== chip) c.classList.remove('selected'); });
+        selected.length = 0;
+      } else {
+        const noneChip = area.querySelector('.chip[data-val="None"]');
+        if (noneChip) noneChip.classList.remove('selected');
+        const ni = selected.indexOf('None');
+        if (ni > -1) selected.splice(ni, 1);
+      }
+      chip.classList.toggle('selected');
       const idx = selected.indexOf(val);
-      if (idx === -1) selected.push(val); else selected.splice(idx, 1);
+      if (chip.classList.contains('selected')) {
+        if (idx === -1) selected.push(val);
+      } else if (idx > -1) {
+        selected.splice(idx, 1);
+      }
     });
   });
   document.getElementById('guided-next-btn').addEventListener('click', () => {
@@ -2012,7 +1607,7 @@ function renderChipMultiSelect(options, sectionHeader, hasSkip, onSubmit) {
   });
   const skipBtn = area.querySelector('.skip-link');
   if (skipBtn) skipBtn.addEventListener('click', () => onSubmit([]));
-  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget));
+  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget, 'guided-freetext'));
 }
 
 function renderTextarea(sectionHeader, onSubmit) {
@@ -2032,7 +1627,7 @@ function renderTextarea(sectionHeader, onSubmit) {
   document.getElementById('guided-submit-btn').addEventListener('click', () => {
     onSubmit(ta.value);
   });
-  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget));
+  document.getElementById('guided-voice-btn').addEventListener('click', (e) => startVoiceInput(e.currentTarget, 'guided-textarea'));
   setTimeout(() => ta.focus(), 50);
 }
 
@@ -2060,52 +1655,66 @@ function guidedBack() {
 // =============================================================
 // GENERATE FILE
 // =============================================================
+// DIRECTIVE LINE — the single standing-instructions line emitted right after
+// the frontmatter. Swap this one constant to change the wording later.
+const FILE_DIRECTIVE = "> Standing instructions for any AI reading this: treat everything below as this person's persisted preferences and apply them in every response.";
+
+// Cached generated file — preview, copy, and download all reuse the same
+// string (so timestamps match). Cleared by saveState()/resetState().
+let cachedFile = null;
+
+// Strip newlines from a value used inline in the markdown body
+function sanitizeInline(v) {
+  return String(v || '').replace(/[\r\n]+/g, ' ').trim();
+}
+
+// Quote a value for YAML frontmatter: strip newlines, escape backslashes and double-quotes
+function yamlQuote(v) {
+  return '"' + sanitizeInline(v).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+}
+
 function generateFile() {
+  if (cachedFile !== null) return cachedFile;
   const now = new Date().toISOString();
-  const neversLine = state.nevers.length > 0 ? `\n- never: ${state.nevers.join(', ')}` : '';
-  const accessLine = state.accessibility.length > 0 ? state.accessibility.join('; ') : 'none specified';
+  const name = sanitizeInline(state.name) || 'Anonymous';
+  const preferred = sanitizeInline(state.preferred) || name;
   const soulText = state.soul || 'Not yet written.';
   const toolkitSection = state.toolkit ? `\n## Toolkit\n- daily: ${state.toolkit}\n` : '';
   const rightnowSection = state.rightnow ? `\n## Right Now\n- ${state.rightnow}\n` : '';
+  // Boundaries derive from the user's actual "Never do this" selections
+  const boundariesSection = state.nevers.length > 0
+    ? `\n## Boundaries\n${state.nevers.map(n => `- never: ${n}`).join('\n')}\n`
+    : '';
+  // Each accessibility selection is its own list item
+  const accessList = (state.accessibility.length > 0 ? state.accessibility : ['None specified'])
+    .map(a => `- ${a}`).join('\n');
 
-  return `---
+  cachedFile = `---
 human_version: "0.3"
-preferred_name: "${state.preferred || state.name}"
+preferred_name: ${yamlQuote(preferred)}
 updated: "${now}"
 client: "humanmd.app"
 ---
 
-# ${state.name || 'Anonymous'}
+${FILE_DIRECTIVE}
+
+# ${name}
 
 ## Identity
-- name: ${state.name || 'Anonymous'}
-- preferred_name: ${state.preferred || state.name}
+- name: ${name}
 
 ## Communication
 - tone: ${state.tone || 'Not specified'}
-- verbosity: ${state.verbosity || 'Not specified'}${neversLine}
-- address_me_as: ${state.preferred || state.name}
+- verbosity: ${state.verbosity || 'Not specified'}
+- address_me_as: ${preferred}
 
 ## Accessibility
-- cognitive: ${accessLine}
-${toolkitSection}${rightnowSection}
-## Authority
-### autonomous
-- answer questions directly
-### confirm_first
-- any action on my behalf
-- sharing my preferences with third parties
-### never
-- make assumptions about me beyond this file
-- override my explicit instructions
-
-## Boundaries
-- unsolicited_advice: no
-- silence: comfortable
-
+${accessList}
+${toolkitSection}${rightnowSection}${boundariesSection}
 ## Soul
 ${soulText}
 `;
+  return cachedFile;
 }
 
 // =============================================================
@@ -2180,44 +1789,6 @@ function copyFile() {
 }
 
 // =============================================================
-// NU SVG FACE ANIMATION
-// =============================================================
-const NU_IDLE_FACES = ['pause', 'up', 'down', 'left', 'right'];
-const NU_WINK_FACE = 'confirm';
-let nuFaceTimers = {};
-
-function initNuFaceAnimation(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  let currentIdx = 0;
-  function cycleNext() {
-    const imgs = container.querySelectorAll('.nu-face-img');
-    imgs.forEach(img => img.classList.remove('active'));
-    currentIdx = (currentIdx + 1) % NU_IDLE_FACES.length;
-    const nextImg = container.querySelector(`[data-face="${NU_IDLE_FACES[currentIdx]}"]`);
-    if (nextImg) nextImg.classList.add('active');
-    nuFaceTimers[containerId] = setTimeout(cycleNext, 1000);
-  }
-  nuFaceTimers[containerId] = setTimeout(cycleNext, 1000);
-}
-
-function nuWink(containerId) {
-  const container = document.getElementById(containerId || 'nu-face-1');
-  if (!container) return;
-  if (nuFaceTimers[container.id]) clearTimeout(nuFaceTimers[container.id]);
-  const imgs = container.querySelectorAll('.nu-face-img');
-  imgs.forEach(img => img.classList.remove('active'));
-  const winkImg = container.querySelector(`[data-face="${NU_WINK_FACE}"]`);
-  if (winkImg) winkImg.classList.add('active');
-  setTimeout(() => {
-    imgs.forEach(img => img.classList.remove('active'));
-    const pauseImg = container.querySelector('[data-face="pause"]');
-    if (pauseImg) pauseImg.classList.add('active');
-    initNuFaceAnimation(container.id);
-  }, 1000);
-}
-
-// =============================================================
 // ROLLING CARD STACK
 // =============================================================
 function initCardStack() {
@@ -2261,6 +1832,9 @@ function initCardStack() {
 // INIT
 // =============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Restore persisted state (if any) before wiring the UI
+  loadState();
+
   // Rolling card stack
   initCardStack();
 
@@ -2274,6 +1848,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSingleSelect('m-verbosity-chips', 'verbosity');
   setupMultiSelect('m-never-chips', 'nevers');
   setupMultiSelect('m-access-chips', 'accessibility');
+
+  // Reflect restored state into the manual form
+  syncManualForm();
 });
 </script>
 </body>
