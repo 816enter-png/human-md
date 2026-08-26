@@ -17,13 +17,13 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-heading: "Barlow", ui-sans-serif, system-ui, sans-serif;
   --hue: 210; /* driven by JS — the whole identity slowly cycles */
-  --color-paper: #0D0D12;
-  --color-ink: #EDEDEA;
-  --color-muted: #97979E;
-  --color-border: rgba(237, 237, 234, 0.14);
-  --color-accent: hsl(var(--hue), 85%, 62%);
-  --color-accent-hover: #EDEDEA;
-  --color-code-bg: rgba(255, 255, 255, 0.06);
+  --color-paper: #F7F7F4;
+  --color-ink: #101012;
+  --color-muted: #6E6E74;
+  --color-border: rgba(16, 16, 18, 0.14);
+  --color-accent: hsl(var(--hue), 80%, 48%);
+  --color-accent-hover: #101012;
+  --color-code-bg: rgba(16, 16, 18, 0.05);
   --radius-sm: 0.25rem;
   --radius-lg: 0.5rem;
 }
@@ -89,7 +89,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  background: rgba(22, 22, 28, 0.55);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -191,7 +191,7 @@ h2 {
   width: 100%;
   line-height: 1.4;
 }
-.btn-primary:hover { background: rgba(237, 237, 234, 0.82); }
+.btn-primary:hover { background: rgba(16, 16, 18, 0.85); }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-secondary {
@@ -376,7 +376,7 @@ textarea.input-field {
   font-family: var(--font-sans);
   font-weight: 500;
 }
-.chat-send-btn:hover { background: rgba(237, 237, 234, 0.82); }
+.chat-send-btn:hover { background: rgba(16, 16, 18, 0.85); }
 
 /* Two column layout */
 .two-col {
@@ -543,10 +543,10 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(15, 15, 20, 0.5);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 1px 0 rgba(237, 237, 234, 0.07);
+  box-shadow: 0 1px 0 rgba(16, 16, 18, 0.06);
   border-radius: 0 0 13px 13px;
   padding: 0;
   height: auto;
@@ -603,11 +603,11 @@ textarea.input-field {
 .card-stack .file-card {
   position: absolute;
   top: 0; left: 0; right: 0;
-  background: rgba(17, 17, 23, 0.82);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(237, 237, 234, 0.1);
+  box-shadow: 0 12px 40px rgba(30, 30, 60, 0.14);
+  border: 1px solid rgba(16, 16, 18, 0.08);
   border-radius: 12px;
   padding: 28px 32px;
   min-height: 280px;
@@ -654,7 +654,7 @@ textarea.input-field {
   color: var(--color-muted);
 }
 .file-card-desc code {
-  background: rgba(237, 237, 234, 0.09);
+  background: rgba(16, 16, 18, 0.06);
   padding: 1px 5px;
   border-radius: 3px;
   font-size: 12px;
@@ -672,7 +672,7 @@ textarea.input-field {
 
 #screen-1 .btn-primary {
   background: var(--color-ink);
-  color: #0D0D12;
+  color: #F7F7F4;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
@@ -684,8 +684,8 @@ textarea.input-field {
 
 /* Landing code block preview — light Figma style */
 #screen-1 .code-block {
-  background-color: rgba(13, 13, 18, 0.72);
-  border: 1px solid rgba(237, 237, 234, 0.12);
+  background-color: #101014;
+  border: 1px solid rgba(16, 16, 18, 0.25);
   border-radius: 8px;
   width: 100%;
   max-width: 512px;
@@ -721,10 +721,10 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(15, 15, 20, 0.5);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 -1px 0 rgba(237, 237, 234, 0.07);
+  box-shadow: 0 -1px 0 rgba(16, 16, 18, 0.06);
   border-radius: 13px 13px 0 0;
   padding: 17px 85px 17px;
   display: flex;
@@ -760,7 +760,7 @@ textarea.input-field {
 }
 
 /* ===== AMBIENT IDENTITY LAYER — amorphous hue-shifting ground + ASCII human ===== */
-html { background: #0B0B0E; }
+html { background: #F7F7F4; }
 
 .bg-aurora {
   position: fixed;
@@ -771,51 +771,77 @@ html { background: #0B0B0E; }
 }
 .bg-aurora .blob {
   position: absolute;
-  border-radius: 50%;
   width: 58vw;
   height: 58vw;
   min-width: 460px;
   min-height: 460px;
-  filter: blur(90px);
-  will-change: transform;
-  opacity: 0.55;
+  filter: blur(64px) saturate(1.2);
+  will-change: transform, border-radius;
+  opacity: 0.75;
 }
 .bg-aurora .b1 {
   top: -18%; left: -12%;
-  background: radial-gradient(circle at 40% 40%, hsla(var(--hue), 80%, 58%, 0.5), transparent 68%);
-  animation: blobDrift1 53s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 38% 38%,
+    hsla(var(--hue), 85%, 62%, 0.6),
+    hsla(calc(var(--hue) + 45), 80%, 60%, 0.32) 48%,
+    transparent 72%);
+  animation: blobDrift1 37s ease-in-out infinite alternate,
+             blobMorph1 19s ease-in-out infinite;
 }
 .bg-aurora .b2 {
   bottom: -22%; right: -14%;
-  background: radial-gradient(circle at 55% 45%, hsla(calc(var(--hue) + 100), 75%, 55%, 0.42), transparent 68%);
-  animation: blobDrift2 67s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 55% 45%,
+    hsla(calc(var(--hue) + 110), 80%, 60%, 0.55),
+    hsla(calc(var(--hue) + 160), 75%, 58%, 0.28) 50%,
+    transparent 72%);
+  animation: blobDrift2 47s ease-in-out infinite alternate,
+             blobMorph2 23s ease-in-out infinite;
 }
 .bg-aurora .b3 {
-  top: 26%; left: 32%;
-  width: 44vw; height: 44vw;
-  background: radial-gradient(circle at 50% 50%, hsla(calc(var(--hue) + 210), 70%, 60%, 0.3), transparent 62%);
-  animation: blobDrift3 89s ease-in-out infinite alternate;
+  top: 24%; left: 30%;
+  width: 46vw; height: 46vw;
+  background: radial-gradient(circle at 50% 50%,
+    hsla(calc(var(--hue) + 220), 80%, 62%, 0.5),
+    hsla(calc(var(--hue) + 270), 75%, 60%, 0.25) 52%,
+    transparent 68%);
+  animation: blobDrift3 59s ease-in-out infinite alternate,
+             blobMorph3 29s ease-in-out infinite;
 }
 .bg-aurora::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 38%, transparent 52%, rgba(6, 6, 10, 0.7));
+  background: radial-gradient(ellipse at 50% 38%, transparent 48%, rgba(247, 247, 244, 0.72));
 }
 @keyframes blobDrift1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(14vw, 10vh) scale(1.15); }
-  100% { transform: translate(4vw, 22vh) scale(0.9); }
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(16vw, 12vh) scale(1.18) rotate(12deg); }
+  100% { transform: translate(5vw, 24vh) scale(0.88) rotate(-8deg); }
 }
 @keyframes blobDrift2 {
-  0%   { transform: translate(0, 0) scale(1.1); }
-  50%  { transform: translate(-12vw, -14vh) scale(0.88); }
-  100% { transform: translate(-20vw, -4vh) scale(1.2); }
+  0%   { transform: translate(0, 0) scale(1.1) rotate(0deg); }
+  50%  { transform: translate(-14vw, -15vh) scale(0.86) rotate(-14deg); }
+  100% { transform: translate(-22vw, -5vh) scale(1.22) rotate(10deg); }
 }
 @keyframes blobDrift3 {
-  0%   { transform: translate(0, 0) scale(0.9); }
-  50%  { transform: translate(-10vw, 8vh) scale(1.18); }
-  100% { transform: translate(8vw, -10vh) scale(1); }
+  0%   { transform: translate(0, 0) scale(0.9) rotate(0deg); }
+  50%  { transform: translate(-12vw, 9vh) scale(1.2) rotate(16deg); }
+  100% { transform: translate(10vw, -12vh) scale(1) rotate(-10deg); }
+}
+@keyframes blobMorph1 {
+  0%, 100% { border-radius: 46% 54% 58% 42% / 48% 44% 56% 52%; }
+  33%      { border-radius: 60% 40% 42% 58% / 38% 62% 40% 60%; }
+  66%      { border-radius: 38% 62% 54% 46% / 58% 40% 64% 36%; }
+}
+@keyframes blobMorph2 {
+  0%, 100% { border-radius: 52% 48% 40% 60% / 56% 50% 50% 44%; }
+  33%      { border-radius: 40% 60% 62% 38% / 44% 58% 42% 56%; }
+  66%      { border-radius: 62% 38% 46% 54% / 40% 46% 60% 54%; }
+}
+@keyframes blobMorph3 {
+  0%, 100% { border-radius: 48% 52% 55% 45% / 50% 55% 45% 50%; }
+  33%      { border-radius: 58% 42% 38% 62% / 62% 40% 58% 42%; }
+  66%      { border-radius: 42% 58% 60% 40% / 42% 60% 38% 62%; }
 }
 
 #ascii-hero {
@@ -978,15 +1004,15 @@ I believe good tools disappear into the workflow.</div></div>
 
       <!-- Path cards -->
       <div class="two-col mt-8" style="gap:1rem;">
-        <div class="card path-card" onclick="showScreen(4)" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
+        <div class="card path-card" onclick="showScreen(4)" style="border:none;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
           <div style="width:40px;height:40px;border-radius:10px;background:var(--color-ink);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F7F7F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <div style="font-family:var(--font-heading);font-size:1.25rem;font-weight:500;margin-bottom:0.5rem;letter-spacing:-0.025em;">Guided by NU</div>
           <div class="text-muted text-sm" style="line-height:1.6;margin-bottom:1.25rem;">I'll ask, you answer.<br>Takes about 2 minutes.</div>
           <button class="btn-primary" style="border-radius:8px;">Let's talk</button>
         </div>
-        <div class="card path-card" onclick="showScreen(5)" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
+        <div class="card path-card" onclick="showScreen(5)" style="border:none;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem 1.5rem;">
           <div style="width:40px;height:40px;border-radius:10px;background:transparent;border:1.5px solid var(--color-border);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </div>
@@ -1019,7 +1045,7 @@ I believe good tools disappear into the workflow.</div></div>
     </div>
 
     <!-- Chat container -->
-    <div class="card mt-6" style="padding:0;overflow:hidden;border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;">
+    <div class="card mt-6" style="padding:0;overflow:hidden;border:none;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;">
       <div class="chat-area" id="chat-area"></div>
     </div>
 
@@ -1050,7 +1076,7 @@ I believe good tools disappear into the workflow.</div></div>
       <div class="progress-bar" id="manual-progress" style="width:50%"></div>
     </div>
 
-    <div class="card mt-6" style="border:none;background:rgba(20,20,26,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem;">
+    <div class="card mt-6" style="border:none;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 3px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);border-radius:12px;padding:2rem;">
       <!-- Name -->
       <div class="form-field">
         <label class="form-label" for="m-name">Name</label>
@@ -1942,7 +1968,7 @@ function initAmbient() {
   const root = document.documentElement;
   const canvas = document.getElementById('ascii-hero');
   const ctx = canvas ? canvas.getContext('2d') : null;
-  const CW = 10, CH = 17, BASE_HUE = 210, HUE_SPEED = 4; // deg/sec — full cycle every 90s
+  const CW = 10, CH = 17, BASE_HUE = 210, HUE_SPEED = 9; // deg/sec — full cycle every 40s
   const FIELD_RAMP = '·::--=+>*';
   const RIM_RAMP = '#%@#';
   let cols = 0, rows = 0, dpr = 1, W = 0, H = 0;
@@ -2046,19 +2072,19 @@ function initAmbient() {
           const pulse = 0.7 + 0.3 * vnoise(x * 0.3 + t * 0.5, y * 0.3);
           chr = RIM_RAMP[(x + y + ((t * 2) | 0)) % RIM_RAMP.length];
           alpha = (0.85 + g * 0.15) * (1 - scrollP * 0.25) * pulse;
-          light = 68 + g * 18;
+          light = 46 - g * 6;
           hshift = 25;
         } else if (edge === 2) {
           chr = '+';
-          alpha = 0.38 * (1 - scrollP * 0.3);
-          light = 60;
+          alpha = 0.32 * (1 - scrollP * 0.3);
+          light = 50;
           hshift = 25;
         } else if (inside) {
           // The void — the human is negative space
           if (nzHash(x, y) < 0.05) {
             chr = '·';
-            alpha = 0.10 + g * 0.25;
-            light = 55;
+            alpha = 0.14 + g * 0.25;
+            light = 42;
           }
         } else {
           // The ambient character field — the cursor reveals hidden glyphs
@@ -2067,7 +2093,7 @@ function initAmbient() {
             const b = Math.min(1, (n - reveal) / (1 - reveal) + g * 0.55);
             chr = FIELD_RAMP[Math.min(FIELD_RAMP.length - 1, (b * FIELD_RAMP.length) | 0)];
             alpha = (0.10 + 0.55 * b + g * 0.3) * (1 - scrollP * 0.55);
-            light = 48 + b * 26 + g * 16;
+            light = 55 - b * 12 - g * 6;
             hshift = n * 50 + g * 70;
           }
         }
@@ -2087,7 +2113,7 @@ function initAmbient() {
     if (rimCells.length && (t % 1.1) < 0.8) {
       const idx = rimCells[Math.floor(((t * 0.02) % 1) * rimCells.length)];
       const rx = idx % cols, ry = ((idx / cols) | 0) - parallax;
-      ctx.fillStyle = 'hsla(' + (((hue + 45) % 360) | 0) + ',95%,75%,0.95)';
+      ctx.fillStyle = 'hsla(' + (((hue + 45) % 360) | 0) + ',95%,42%,0.95)';
       ctx.fillText('▮', (rx + 0.5) * CW * dpr, (ry + 0.5) * CH * dpr);
     }
   }
