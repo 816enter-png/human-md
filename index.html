@@ -306,7 +306,9 @@ textarea.input-field {
   border-radius: var(--radius-lg);
   padding: 1.25rem 1.5rem;
   margin-top: 1rem;
-  background: var(--color-paper);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .speech-bubble::before {
   content: '';
@@ -316,7 +318,7 @@ textarea.input-field {
   transform: translateX(-50%) rotate(45deg);
   width: 12px;
   height: 12px;
-  background: var(--color-paper);
+  background: rgba(255, 255, 255, 0.5);
   border-left: 1px solid var(--color-border);
   border-top: 1px solid var(--color-border);
 }
@@ -543,7 +545,7 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.32);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 1px 0 rgba(16, 16, 18, 0.06);
@@ -721,7 +723,7 @@ textarea.input-field {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.32);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 -1px 0 rgba(16, 16, 18, 0.06);
@@ -760,7 +762,7 @@ textarea.input-field {
 }
 
 /* ===== AMBIENT IDENTITY LAYER — amorphous hue-shifting ground + ASCII human ===== */
-html { background: #F7F7F4; }
+html { background: hsl(230, 75%, 68%); }
 
 .bg-aurora {
   position: fixed;
@@ -768,6 +770,11 @@ html { background: #F7F7F4; }
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  /* Full-color ground — no white anywhere behind the field */
+  background: linear-gradient(155deg,
+    hsl(var(--hue), 82%, 74%) 0%,
+    hsl(calc(var(--hue) + 55), 78%, 68%) 45%,
+    hsl(calc(var(--hue) + 120), 80%, 70%) 100%);
 }
 .bg-aurora .blob {
   position: absolute;
@@ -811,7 +818,7 @@ html { background: #F7F7F4; }
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 38%, transparent 48%, rgba(247, 247, 244, 0.72));
+  background: radial-gradient(ellipse at 50% 38%, transparent 50%, hsla(calc(var(--hue) + 300), 70%, 42%, 0.3));
 }
 @keyframes blobDrift1 {
   0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
